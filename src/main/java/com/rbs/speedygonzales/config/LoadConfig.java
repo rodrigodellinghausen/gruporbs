@@ -3,8 +3,11 @@ package com.rbs.speedygonzales.config;
 import com.rbs.speedygonzales.util.XmlUtil;
 import com.sun.org.apache.xpath.internal.CachedXPathAPI;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
@@ -48,23 +51,53 @@ public class LoadConfig {
             final CachedXPathAPI cachedXPathAPI, 
             final Configuration configuration) throws Exception {
         
+        Node node = 
+                cachedXPathAPI.selectSingleNode(document.getFirstChild(), "inputs");
+        
+        List<ConfigInput> inputs = getInputs(node, cachedXPathAPI);
+        
+        for ( ConfigInput input : inputs ) {
+            configuration.getMapInputs().put( input.getId(), input);
+        }
+        
+    }
+    
+    private List<ConfigInput> getInputs(final Node node, 
+            final CachedXPathAPI cachedXPathAPI ) throws Exception {
+        
         NodeList inputList = 
-                cachedXPathAPI.selectNodeList(document.getFirstChild(), "inputs/input");
+                cachedXPathAPI.selectNodeList(node, "input");
+        
+        List<ConfigInput> inputs = new ArrayList<ConfigInput>();
         
         for (int i = 0; i < inputList.getLength(); i++) {
-            Element element = (Element) inputList.item(i);
-            
-            String typeValue = element.getAttribute("type");
-            
-            ConfigInput configInput = new ConfigInput();
-            configInput.setId( element.getAttribute("id") );
-            configInput.setType(Class.forName(typeValue));
-            configInput.setSource( element.getAttribute("source") );
-            configInput.setCondition( element.getAttribute("condition") );
-            configInput.setUseInContext( "true".equals(element.getAttribute("use-in-context")) );
-            
-            configuration.getMapInputs().put( configInput.getId(), configInput);
+            try {
+                Element element = (Element) inputList.item(i);
+
+                String typeValue = element.getAttribute("type");
+
+                ConfigInput configInput = new ConfigInput();
+                configInput.setId( element.getAttribute("id") );
+                configInput.setType(Class.forName(typeValue));
+                configInput.setSource( element.getAttribute("source") );
+                configInput.setCondition( element.getAttribute("condition") );
+                configInput.setUseInContext( "true".equals(element.getAttribute("use-in-context")) );
+                
+                //chama este método recursivo
+                try {
+                    List<ConfigInput> subInputs = getInputs(element, cachedXPathAPI);
+                    configInput.getInputs().addAll(subInputs);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+                inputs.add(configInput);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        
+        return inputs;
     }
     
     private void loadOutputs( final Document document, 
