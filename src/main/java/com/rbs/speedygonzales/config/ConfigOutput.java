@@ -1,5 +1,6 @@
 package com.rbs.speedygonzales.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,7 +12,7 @@ import java.util.List;
 class ConfigOutput {
     
     private String template;
-    private List<ConfigInput> inputs;
+    private List<ConfigInput> inputs = new ArrayList<ConfigInput>();
     private String filenamePattern;
     private String condition;
 

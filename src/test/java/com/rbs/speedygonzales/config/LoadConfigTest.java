@@ -27,7 +27,7 @@ public class LoadConfigTest extends TestCase {
         super.tearDown();
     }
 
-    public void testLoadWithOutputs() throws Exception {
+    public void testLoad() throws Exception {
         
         File file = getFileConfig();
         
@@ -38,7 +38,9 @@ public class LoadConfigTest extends TestCase {
         assertEquals("Tem que ter 2 outputs", 2, config.getOutputs().size());
         
         ConfigOutput output = config.getOutputs().get(0);
-        assertEquals("", "saida{sequence}.json", output.getFilenamePattern());
+        assertEquals("Valor do filename-pattern", "saida{sequence}.json", output.getFilenamePattern());
+        assertEquals("Número de inputs do primeiro output", 2, output.getInputs().size());
+        
     }
     
     

@@ -8,11 +8,11 @@ import java.util.List;
  * @author Rodrigo Dellinghausen, rodrigo@gruporbs.com.br, dellinghausen@gmail.com
  * @since 27/05/2013
  */
-class ConfigInput<T> {
+class ConfigInput {
     
     private String id;
     private String source;
-    private Class<T> type;
+    private Class type;
     
     private boolean useInContext = true;
     private String condition;
@@ -35,11 +35,11 @@ class ConfigInput<T> {
         this.source = source;
     }
 
-    public Class<T> getType() {
+    public Class getType() {
         return type;
     }
 
-    public void setType(Class<T> type) {
+    public void setType(Class type) {
         this.type = type;
     }
 

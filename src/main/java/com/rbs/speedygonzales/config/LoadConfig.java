@@ -24,11 +24,55 @@ public class LoadConfig {
         Configuration configuration = new Configuration();
         
         XmlUtil xmlUtil = new XmlUtil();
-        
         Document document = xmlUtil.getDocument(file);
         CachedXPathAPI cachedXPathAPI = new CachedXPathAPI();
         
-        NodeList outputList = cachedXPathAPI.selectNodeList(document.getFirstChild(), "outputs/output");
+        loadBaseDirs(document, cachedXPathAPI, configuration);
+        loadInputs(document, cachedXPathAPI, configuration);
+        loadOutputs(document, cachedXPathAPI, configuration);
+        
+        return configuration;
+    }
+
+    private void loadBaseDirs(final Document document, 
+            final CachedXPathAPI cachedXPathAPI, 
+            final Configuration configuration) throws Exception {
+        
+        Element element = 
+                (Element) cachedXPathAPI.selectSingleNode(document.getFirstChild(), "basedirs");
+        
+        configuration.setOutputBaseDir( element.getAttribute("output-dir") );
+        configuration.setTemplateBaseDir( element.getAttribute("template-dir") );
+    }
+    private void loadInputs( final Document document, 
+            final CachedXPathAPI cachedXPathAPI, 
+            final Configuration configuration) throws Exception {
+        
+        NodeList inputList = 
+                cachedXPathAPI.selectNodeList(document.getFirstChild(), "inputs/input");
+        
+        for (int i = 0; i < inputList.getLength(); i++) {
+            Element element = (Element) inputList.item(i);
+            
+            String typeValue = element.getAttribute("type");
+            
+            ConfigInput configInput = new ConfigInput();
+            configInput.setId( element.getAttribute("id") );
+            configInput.setType(Class.forName(typeValue));
+            configInput.setSource( element.getAttribute("source") );
+            configInput.setCondition( element.getAttribute("condition") );
+            configInput.setUseInContext( "true".equals(element.getAttribute("use-in-context")) );
+            
+            configuration.getMapInputs().put( configInput.getId(), configInput);
+        }
+    }
+    
+    private void loadOutputs( final Document document, 
+            final CachedXPathAPI cachedXPathAPI, 
+            final Configuration configuration) throws Exception {
+        
+        NodeList outputList = 
+                cachedXPathAPI.selectNodeList(document.getFirstChild(), "outputs/output");
         
         for (int i = 0; i < outputList.getLength(); i++) {
             Element element = (Element) outputList.item(i);
@@ -51,8 +95,6 @@ public class LoadConfig {
             
             configuration.getOutputs().add(output);
         }
-        
-        return configuration;
     }
     
 }
