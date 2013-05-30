@@ -50,7 +50,7 @@ public class LoadConfigTest extends TestCase {
         assertEquals("Valor do filename-pattern", "saida{sequence}.json", output.getFilenamePattern());
         assertEquals("Número de inputs do primeiro output", 2, output.getInputs().size());
         
-        //teste github
+        //teste github 2
     }
     
     
