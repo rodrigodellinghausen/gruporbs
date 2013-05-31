@@ -2,31 +2,18 @@ package com.rbs.speedygonzales.config;
 
 import java.io.File;
 import java.net.URL;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * 
  * @author Rodrigo Dellinghausen, rodrigo@gruporbs.com.br, dellinghausen@gmail.com
  * @since 27/05/2013
  */
-public class LoadConfigTest extends TestCase {
+public class LoadConfigTest {
     
-    public LoadConfigTest(String testName) {
-        super(testName);
-    }
     
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-    
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
+    @Test
     public void testLoad() throws Exception {
         
         File file = getFileConfig();
