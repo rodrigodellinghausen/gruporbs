@@ -1,5 +1,6 @@
 package com.rbs.speedygonzales.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -8,7 +9,7 @@ import java.util.List;
  * @author Rodrigo Dellinghausen, rodrigo@gruporbs.com.br, dellinghausen@gmail.com
  * @since 27/05/2013
  */
-class ConfigInput {
+public class ConfigInput {
     
     private String id;
     private String source;
@@ -17,7 +18,7 @@ class ConfigInput {
     private boolean useInContext = true;
     private String condition;
     
-    private List<ConfigInput> inputs;
+    private List<ConfigInput> inputs = new ArrayList<ConfigInput>();
 
     public String getId() {
         return id;

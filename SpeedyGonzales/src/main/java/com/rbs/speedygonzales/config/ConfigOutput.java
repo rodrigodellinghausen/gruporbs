@@ -9,7 +9,7 @@ import java.util.List;
  * @author Rodrigo Dellinghausen, rodrigo@gruporbs.com.br, dellinghausen@gmail.com
  * @since 27/05/2013
  */
-class ConfigOutput {
+public class ConfigOutput {
     
     private String template;
     private List<ConfigInput> inputs = new ArrayList<ConfigInput>();

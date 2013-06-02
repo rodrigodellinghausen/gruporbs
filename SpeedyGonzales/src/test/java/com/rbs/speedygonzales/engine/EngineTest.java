@@ -24,7 +24,8 @@ public class EngineTest {
     public void generateFileTemplateNotFound() throws FileNotFoundException {
         Engine engine = new Engine();
         
-        engine.generate(null, new File("/fileNotExist.test") );
+        //engine.generate(null, new File("/fileNotExist.test") );
+        fail("Implementar");
     }
     
     /**
@@ -40,10 +41,12 @@ public class EngineTest {
         assertTrue("Não encontrou o arquivo", templateFile.exists());
         
         Engine engine = new Engine();
-        String content = engine.generate(null, templateFile);
+//        String content = engine.generate(null, templateFile);
         
-        assertNotNull("O conteúdo não pode ser nulo.", content);
-        assertEquals("Conteúdo retornado.", "Test template", content);
+        fail("Implementar");
+        
+//        assertNotNull("O conteúdo não pode ser nulo.", content);
+//        assertEquals("Conteúdo retornado.", "Test template", content);
     }
     
     
