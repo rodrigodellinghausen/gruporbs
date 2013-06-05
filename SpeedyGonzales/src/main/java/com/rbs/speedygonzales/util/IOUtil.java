@@ -2,6 +2,7 @@ package com.rbs.speedygonzales.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 
@@ -34,5 +35,10 @@ public class IOUtil {
         }
         
         out.close(); 
+    }
+    
+    public InputStream getContent(final String url) {
+        //TODO implementar
+        return null;
     }
 }

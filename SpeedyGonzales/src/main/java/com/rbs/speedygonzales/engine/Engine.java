@@ -3,15 +3,20 @@ package com.rbs.speedygonzales.engine;
 import com.rbs.speedygonzales.config.ConfigInput;
 import com.rbs.speedygonzales.config.ConfigOutput;
 import com.rbs.speedygonzales.config.Configuration;
+import com.rbs.speedygonzales.tools.XmlTool;
 import com.rbs.speedygonzales.util.IOUtil;
+import com.rbs.speedygonzales.util.XmlUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URL;
+import java.util.List;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
+import org.w3c.dom.Document;
 
 
 /**
@@ -45,6 +50,8 @@ public class Engine {
             
             VelocityContext context = new VelocityContext();
             
+            bindContext(context, configOutput.getInputs());
+
             try {
                 velocityEngine.evaluate(context, writer, "Gerando template", new FileReader(templateFile));        
             } catch (Exception e) {
@@ -56,11 +63,40 @@ public class Engine {
             File outputFile = new File( configuration.getOutputBaseDir() + configOutput.getFilenamePattern() );
             //grava no file system 
             try {
-                ioUtil.writeToTmpAndMove(outputFile, new StringReader( writer.toString() ) , "UTF-8");
+                ioUtil.writeTo(outputFile, new StringReader( writer.toString() ) , "UTF-8");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         
+    }
+    
+    private void bindContext(Context context, List<ConfigInput> inputs) {
+        final XmlUtil xmlUtil = new XmlUtil();
+        Document document = null;
+        for (ConfigInput input : inputs) {
+            try {
+                if ( input.getSource() != null) {
+                    if (input.getSource().startsWith("file:")) {
+                        File file = new File( input.getSource().replaceFirst("file:", "") );
+                        document = xmlUtil.getDocument(file);
+                    } else if (input.getSource().startsWith("http://")) {
+                        
+                    } else if (input.getSource().startsWith("classpath:")) {
+                        URL url = 
+                                this.getClass().getClassLoader()
+                                    .getResource(input.getSource().replaceFirst("classpath:", ""));
+                        File file = new File( url.getPath() );
+                        document = xmlUtil.getDocument(file);
+                    }
+                }
+                
+                if (document != null) {
+                    context.put(input.getId(), new XmlTool(document.getFirstChild()));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
