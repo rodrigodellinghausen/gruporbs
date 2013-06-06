@@ -1,0 +1,7 @@
+<root>
+#foreach($node in $input1.record.list() )
+	<item pos="$foreach.count" id="$node.id" >
+		<editor>$node.editor</editor>
+	</item>
+#end
+</root>

@@ -1,0 +1,6 @@
+[
+#foreach($node in $input1.record.list() )
+	{pos:$foreach.count, "id":"$node.id", "editor":"$node.editor"}#if( $foreach.hasNext ),#end
+	
+#end
+]

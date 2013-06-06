@@ -7,7 +7,9 @@
     <inputs>
         <input id="input1" source="file:C:\shared\speedy\inputs\input1.xml" 
 				type="com.rbs.speedygonzales.tools.XmlTool" use-in-context="false">
-            <input id="sub-input1" condition="xpath:/root/galleries/gallery" source="http://www.clic.com.br/gallery?id={@id}&amp;tag={name}" />
+            <input id="sub-input1" condition="xpath:/root/galleries/gallery" 
+				type="com.rbs.speedygonzales.tools.XmlTool"
+				source="http://www.clic.com.br/gallery?id={@id}&amp;tag={name}" />
         </input>
         <input id="input2" source="file:C:\shared\speedy\inputs\input2.xml" 
 				type="com.rbs.speedygonzales.tools.XmlTool" />
@@ -23,6 +25,8 @@
                 filename-pattern="saida1.json"
                 condition="xpath:[input1]/root/articles" />
         
-        <output template="template2.vm" inputs="input2" filename-pattern="saida.xml" />
+        <output template="template2.vm" inputs="input2" filename-pattern="saida2.json" />
+		
+		<output template="templateXML.vm" inputs="input1" filename-pattern="outro.xml" />
     </outputs>
 </config>

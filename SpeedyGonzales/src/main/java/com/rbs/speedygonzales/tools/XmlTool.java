@@ -1,14 +1,15 @@
 package com.rbs.speedygonzales.tools;
 
-import com.sun.org.apache.xpath.internal.CachedXPathAPI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.traversal.NodeIterator;
+
+import com.sun.org.apache.xpath.internal.CachedXPathAPI;
 
 /**
  * 
@@ -46,14 +47,28 @@ public class XmlTool {
        if ( value != null) {
            return value;
        }
+       Integer integer = null;
+       try {
+           integer = Integer.parseInt(name);
+       } catch (Exception e){}
+       if (integer != null) {
+               return get(integer);
+       }
+       
        String xpath = "";
        if (!name.trim().startsWith("/")) {
-           xpath = "//";
+           xpath = "./";
        }
        xpath += name;
        return find(xpath);
     }
     
+    public XmlTool get(int i) {
+            if (isEmpty() || i >= nodes.size() || i < 0) {
+                    return null;
+            }
+            return new XmlTool( nodes.get(i) );
+    }
     /**
      * Retorna o valo de um atributo.
      * 
@@ -105,11 +120,14 @@ public class XmlTool {
      * Útil em foreach.
      * @return 
      */
-    public List<Node> nodes() {
-        if ( nodes == null ) {
-            return new ArrayList<Node>();
+    public List<XmlTool> list() {
+         List<XmlTool> list = new ArrayList<XmlTool>();
+        if (nodes != null) {
+                for (Node node : nodes) {
+                        list.add( new XmlTool(node));
+                }
         }
-        return nodes;
+        return list;
     }
     
     /**
