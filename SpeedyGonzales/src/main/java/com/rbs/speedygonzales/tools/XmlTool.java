@@ -73,19 +73,7 @@ public class XmlTool {
         }
         return null;
     }
-    
-    /**
-     * 
-     * @return 
-     */
-    public String asText() {
-       Node node = node();
-       if (node != null && node instanceof Element) {
-           return ((Element) node).getTextContent();
-       }
-       return null;
-    }
-    
+   
     /**
      * Busca por uma xpath.
      * 
@@ -139,4 +127,19 @@ public class XmlTool {
     public boolean isEmpty() {
         return (nodes == null || nodes.isEmpty());
     }
+
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return super.toString();
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for (Node node : nodes) {
+            sb.append( node.getTextContent() );
+        }
+        return sb.toString();
+    }
+    
+    
 }
