@@ -24,8 +24,8 @@ public class LoadConfigTest {
         assertNotNull("Não carregou", config);
         
         //base dir
-        assertEquals("Template base dir", "/shared/templates", config.getTemplateBaseDir());
-        assertEquals("Output base dir", "/shared/outputs", config.getOutputBaseDir());
+        assertEquals("Template base dir", "/shared/templates/", config.getTemplateBaseDir());
+        assertEquals("Output base dir", "/shared/outputs/", config.getOutputBaseDir());
         
         //inputs
         assertEquals("Número de inputs", 2, config.getMapInputs().size());
@@ -34,8 +34,8 @@ public class LoadConfigTest {
         assertEquals("Tem que ter 2 outputs", 2, config.getOutputs().size());
         
         ConfigOutput output = config.getOutputs().get(0);
-        assertEquals("Valor do filename-pattern", "saida{sequence}.json", output.getFilenamePattern());
-        assertEquals("Número de inputs do primeiro output", 2, output.getInputs().size());
+        assertEquals("Valor do filename-pattern", "saida1.json", output.getFilenamePattern());
+        assertEquals("Número de inputs do primeiro output", 1, output.getInputs().size());
         
         //teste github 2
     }
