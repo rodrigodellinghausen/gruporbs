@@ -26,6 +26,6 @@ public class MainDefault {
         Engine engine = new Engine();
         engine.generate(config);
 
-        System.out.println("FIM");
+        System.out.println("FIM ");
     }
 }
