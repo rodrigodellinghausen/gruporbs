@@ -1,0 +1,14 @@
+{
+	"date-published": "$news.date-published.value",
+	"news":[
+		#foreach($article in $news.date-published.new.list() )
+			{"id": "$article.id",
+			  "title": "$article.title",
+			  #set( $subtitle = "$article.subtitle")
+			  "subtitle": "$subtitle"
+			}#if($foreach.hasNext),#end
+
+		#end
+
+	]
+}

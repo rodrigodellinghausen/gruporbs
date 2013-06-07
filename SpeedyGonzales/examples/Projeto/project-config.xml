@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config version="1.0">
+	<basedirs template-dir="C:\Projetos\Testes SpeedyGonzales\templates\" output-dir="C:\Projetos\Testes SpeedyGonzales\outputs\" />
+
+	<inputs>
+		<input id="news" source="file:C:\Projetos\Testes SpeedyGonzales\inputs\ultimas-noticias.xml" type="com.rbs.speedygonzales.tools.XmlTool" />
+	</inputs>
+
+
+	<outputs>
+		<output template="news-json.vm" inputs="news" filename-pattern="news.json"  />
+	</outputs>
+</config>
