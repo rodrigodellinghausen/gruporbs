@@ -1,11 +1,10 @@
-{
+var json = {
 	"date-published": "$news.date-published.value",
 	"news":[
 		#foreach($article in $news.date-published.new.list() )
 			{"id": "$article.id",
-			  "title": "$article.title",
-			  #set( $subtitle = "$article.subtitle")
-			  "subtitle": "$subtitle"
+				"title": "$escape.escape($article.title,'JavaScript')",
+				"subtitle": "$escape.escape($article.subtitle,'JavaScript')"
 			}#if($foreach.hasNext),#end
 
 		#end

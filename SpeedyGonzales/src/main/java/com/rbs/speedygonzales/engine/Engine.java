@@ -4,6 +4,7 @@ import com.rbs.speedygonzales.config.ConfigInput;
 import com.rbs.speedygonzales.config.ConfigOutput;
 import com.rbs.speedygonzales.config.Configuration;
 import com.rbs.speedygonzales.tools.XmlTool;
+import com.rbs.speedygonzales.util.EscapeUtil;
 import com.rbs.speedygonzales.util.IOUtil;
 import com.rbs.speedygonzales.util.XmlUtil;
 import java.io.File;
@@ -52,6 +53,9 @@ public class Engine {
             
             bindContext(context, configOutput.getInputs());
 
+            //escapeUtil
+            context.put("escape", new EscapeUtil());
+            
             try {
                 velocityEngine.evaluate(context, writer, "Gerando template", new FileReader(templateFile));        
             } catch (Exception e) {
