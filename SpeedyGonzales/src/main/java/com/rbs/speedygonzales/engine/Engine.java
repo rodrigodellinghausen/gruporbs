@@ -10,6 +10,7 @@ import com.rbs.speedygonzales.util.XmlUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
@@ -85,7 +86,9 @@ public class Engine {
                         File file = new File( input.getSource().replaceFirst("file:", "") );
                         document = xmlUtil.getDocument(file);
                     } else if (input.getSource().startsWith("http://")) {
-                        
+                        IOUtil ioUtil = new IOUtil();
+                        InputStream inputStream = ioUtil.getContent( input.getSource() );
+                        document = xmlUtil.getDocument(inputStream);
                     } else if (input.getSource().startsWith("classpath:")) {
                         URL url = 
                                 this.getClass().getClassLoader()

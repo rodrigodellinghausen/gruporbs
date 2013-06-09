@@ -1,7 +1,7 @@
 package com.rbs.speedygonzales.util;
 
-import com.sun.org.apache.xpath.internal.CachedXPathAPI;
 import java.io.File;
+import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
@@ -21,6 +21,15 @@ public class XmlUtil {
      */
     public Document getDocument(final File file) throws Exception {
         return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
+    }
+    
+    /**
+     * Faz o parser de um InputStream e retorna um <code>org.w3c.dom.Document</code>.
+     * @param inputStream
+     * @return 
+     */
+    public Document getDocument(final InputStream inputStream) throws Exception {
+        return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputStream);
     }
     
     /**

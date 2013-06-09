@@ -1,10 +1,15 @@
 package com.rbs.speedygonzales.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * 
@@ -38,7 +43,36 @@ public class IOUtil {
     }
     
     public InputStream getContent(final String url) {
-        //TODO implementar
+        InputStream inputStream = null;
+        try {
+            final URL conUrl = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) conUrl.openConnection();
+            inputStream = connection.getInputStream();
+            
+            return getByteArrayInputStream(inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try { inputStream.close(); } catch(Exception e){}
+        }
         return null;
+    }
+    
+    private ByteArrayInputStream getByteArrayInputStream(final InputStream inputStream) throws IOException {
+        
+        if (inputStream == null) {
+            return null;
+        }
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        
+        byte[] bytes = new byte[1024];
+        int len = 0;
+        while ( (len = inputStream.read(bytes) ) != -1 ) {
+            out.write(bytes, 0, len);
+        }
+        
+        ByteArrayInputStream byteInputStream = new ByteArrayInputStream( out.toByteArray());
+        
+        return byteInputStream;
     }
 }
