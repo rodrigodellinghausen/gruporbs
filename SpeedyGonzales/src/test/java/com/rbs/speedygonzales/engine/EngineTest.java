@@ -1,10 +1,5 @@
 package com.rbs.speedygonzales.engine;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 
 /**
