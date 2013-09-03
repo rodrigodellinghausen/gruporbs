@@ -93,7 +93,7 @@ public class LoadConfig {
                 
                 inputs.add(configInput);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
         
