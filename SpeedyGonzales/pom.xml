@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.rbs.gonzales</groupId>
-  <artifactId>SpeedyGonzales</artifactId>
+  <artifactId>speedygonzales</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 

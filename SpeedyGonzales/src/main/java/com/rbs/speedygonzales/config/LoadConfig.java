@@ -111,6 +111,7 @@ public class LoadConfig {
             Element element = (Element) outputList.item(i);
             
             ConfigOutput output = new ConfigOutput();
+            output.setId( element.getAttribute("id") );
             output.setTemplate( element.getAttribute("template") );
             output.setCondition( element.getAttribute("condition") );
             output.setFilenamePattern( element.getAttribute("filename-pattern") );
